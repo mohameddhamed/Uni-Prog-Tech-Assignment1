@@ -1,0 +1,10 @@
+*
+
+!*/
+
+!*.cs
+!README.md
+!.gitignore
+
+obj
+
