@@ -2,20 +2,14 @@
 
 namespace Shapes
 {
-    class Circle
+    class Circle : Shapes
     {
         public class WrongRadiusException : Exception { }
 
-        private readonly Point c;
-        private readonly double r;
-        public Circle(Point p, double d)
+        public Circle(Point center, double length) : base(center, length) { }
+        public bool distanceToPoint(Point point)
         {
-            if (d < 0) throw new WrongRadiusException();
-            c = p; r = d;
-        }
-        public bool Contains(Point p)
-        {
-            return c.Distance(p) <= r;
+            return center.Distance(point) <= length;
         }
     }
 }
