@@ -1,13 +1,16 @@
-namespace Shapes
+using System;
 
-public class Shape
+namespace Shapes
 {
-    protected Point center;
-    protected double length;
-    public Shape(double centerX, double centerY, double length)
+    class Shape
     {
-        this.Point = new Point(centerX, centerY);
-        this.length = length;
+        protected Point center;
+        protected double length;
+        public Shape(Point center, double length)
+        {
+            this.center = center;
+            this.length = length;
+        }
+        public virtual double DistanceToPoint(Point point) { }
     }
-    public abstract double distanceToPoint(Point point);
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using TextFile;
 using System.Collections.Generic;
+using TextFile;
 
 namespace Shapes
 {
@@ -10,45 +10,78 @@ namespace Shapes
         {
             try
             {
-                TextFileReader reader = new("input.txt");
+                // Initialize the TextFileReader with the input file
+                TextFileReader reader = new TextFileReader("input.txt");
 
-                reader.ReadDouble(out double a);
-                reader.ReadDouble(out double b);
-                reader.ReadDouble(out double c);
-                Circle k = new(new Point(a, b), c);
+                // Read the number of shapes from the file
+                reader.ReadInt(out int numberOfShapes);
+                List<Shape> shapes = new List<Shape>();
 
-                reader.ReadInt(out int n);
-                Point[] x = new Point[n];
-                for (int i = 0; i < n; ++i)
+                // Read each shape's data and create the corresponding shape
+                for (int i = 0; i < numberOfShapes; i++)
                 {
-                    reader.ReadDouble(out a);
-                    reader.ReadDouble(out b);
-                    x[i] = new Point(a, b);
-                    Console.WriteLine(a);
+                    reader.ReadChar(out char shapeType);  // Shape type is a single character
+                    reader.ReadDouble(out double centerX);
+                    reader.ReadDouble(out double centerY);
+                    reader.ReadDouble(out double length);
+
+                    // Instantiate shapes based on their type
+                    switch (shapeType)
+                    {
+                        case 'C':  // Circle
+                            shapes.Add(new Circle(new Point(centerX, centerY), length));
+                            break;
+                        case 'T':  // Regular Triangle
+                            shapes.Add(new RegularTriangle(new Point(centerX, centerY), length));
+                            break;
+                        case 'S':  // Square
+                            shapes.Add(new Square(new Point(centerX, centerY), length));
+                            break;
+                        case 'H':  // Regular Hexagon
+                            shapes.Add(new RegularHexagon(new Point(centerX, centerY), length));
+                            break;
+                        default:
+                            Console.WriteLine($"Unknown shape type: {shapeType}");
+                            break;
+                    }
                 }
 
-                // linsearch
-                bool l = false;
-                for (int i = 0; i < x.Length && !l; i++)
+                // Read the point to calculate the distance from
+                reader.ReadDouble(out double pointX);
+                reader.ReadDouble(out double pointY);
+                Point targetPoint = new Point(pointX, pointY);
+
+                // Find the closest shape to the given point
+                Shape closestShape = null;
+                double closestDistance = double.MaxValue;
+
+                foreach (var shape in shapes)
                 {
-                    l = k.Contains(x[i]);
+                    double distance = shape.DistanceToPoint(targetPoint);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestShape = shape;
+                    }
                 }
-                if (l)
+
+                // Output the result
+                if (closestShape != null)
                 {
-                    Console.WriteLine("There is point in the circle.");
+                    Console.WriteLine($"The closest shape to the point ({pointX}, {pointY}) is a {closestShape.GetType().Name} with a distance of {closestDistance}.");
                 }
                 else
                 {
-                    Console.WriteLine("There is not any point in the circle.");
+                    Console.WriteLine("No shapes found.");
                 }
             }
             catch (System.IO.FileNotFoundException)
             {
-                Console.WriteLine("The file does not exist.");
+                Console.WriteLine("The input file 'input.txt' does not exist.");
             }
-            catch (Circle.WrongRadiusException)
+            catch (Exception ex)
             {
-                Console.WriteLine("The radius of the circle cannot be negative.");
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
     }
