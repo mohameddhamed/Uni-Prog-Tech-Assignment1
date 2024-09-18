@@ -4,19 +4,19 @@ namespace Shapes
 {
     class Point
     {
-        public readonly double x;
-        public readonly double y;
-        public Point(double a, double b) { x = a; y = b; }
+        public readonly double X;
+        public readonly double Y;
+        public Point(double a, double b) { X = a; Y = b; }
         public double Distance(Point p)
         {
-            return Math.Sqrt(Math.Pow(x - p.x, 2) + Math.Pow(y - p.y, 2));
+            return Math.Sqrt(Math.Pow(X - p.X, 2) + Math.Pow(Y - p.Y, 2));
         }
         public double DistanceToLineSegment(Point v1, Point v2)
         {
             double x1 = v1.X, y1 = v1.Y, x2 = v2.X, y2 = v2.Y;
 
-            double A = x - x1;
-            double B = y - y1;
+            double A = X - x1;
+            double B = Y - y1;
             double C = x2 - x1;
             double D = y2 - y1;
 
@@ -44,8 +44,8 @@ namespace Shapes
                 yy = y1 + param * D;
             }
 
-            double dx = x - xx;
-            double dy = y - yy;
+            double dx = X - xx;
+            double dy = Y - yy;
             return Math.Sqrt(dx * dx + dy * dy);
         }
     }

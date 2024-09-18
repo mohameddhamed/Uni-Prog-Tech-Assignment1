@@ -11,6 +11,9 @@ namespace Shapes
             this.center = center;
             this.length = length;
         }
-        public virtual double DistanceToPoint(Point point) { }
+        public virtual double DistanceToPoint(Point point)
+        {
+            return center.Distance(point);
+        }
     }
 }

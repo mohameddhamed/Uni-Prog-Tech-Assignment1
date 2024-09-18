@@ -23,8 +23,8 @@ namespace Shapes
             }
 
             // Calculate the horizontal and vertical distances
-            double dx = Math.Max(left - point.X, 0, point.X - right);
-            double dy = Math.Max(bottom - point.Y, 0, point.Y - top);
+            double dx = new[] { left - point.X, 0, point.X - right }.Max();
+            double dy = new[] { bottom - point.Y, 0, point.Y - top }.Max();
 
             // Return the Euclidean distance from the point to the nearest edge
             return Math.Sqrt(dx * dx + dy * dy);
