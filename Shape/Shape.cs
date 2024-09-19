@@ -2,7 +2,7 @@ using System;
 
 namespace Shapes
 {
-    class Shape
+    public class Shape
     {
         protected Point center;
         protected double length;

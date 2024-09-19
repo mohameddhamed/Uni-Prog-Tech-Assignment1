@@ -10,34 +10,34 @@ namespace Shapes
         {
             try
             {
-                // Initialize the TextFileReader with the input file
+
                 TextFileReader reader = new TextFileReader("input.txt");
 
-                // Read the number of shapes from the file
+
                 reader.ReadInt(out int numberOfShapes);
                 List<Shape> shapes = new List<Shape>();
 
-                // Read each shape's data and create the corresponding shape
+
                 for (int i = 0; i < numberOfShapes; i++)
                 {
-                    reader.ReadChar(out char shapeType);  // Shape type is a single character
+                    reader.ReadChar(out char shapeType);
                     reader.ReadDouble(out double centerX);
                     reader.ReadDouble(out double centerY);
                     reader.ReadDouble(out double length);
 
-                    // Instantiate shapes based on their type
+
                     switch (shapeType)
                     {
-                        case 'C':  // Circle
+                        case 'C':
                             shapes.Add(new Circle(new Point(centerX, centerY), length));
                             break;
-                        case 'T':  // Regular Triangle
+                        case 'T':
                             shapes.Add(new RegularTriangle(new Point(centerX, centerY), length));
                             break;
-                        case 'S':  // Square
+                        case 'S':
                             shapes.Add(new Square(new Point(centerX, centerY), length));
                             break;
-                        case 'H':  // Regular Hexagon
+                        case 'H':
                             shapes.Add(new RegularHexagon(new Point(centerX, centerY), length));
                             break;
                         default:
@@ -46,12 +46,12 @@ namespace Shapes
                     }
                 }
 
-                // Read the point to calculate the distance from
+
                 reader.ReadDouble(out double pointX);
                 reader.ReadDouble(out double pointY);
                 Point targetPoint = new Point(pointX, pointY);
 
-                // Find the closest shape to the given point
+
                 Shape closestShape = null;
                 double closestDistance = double.MaxValue;
 
@@ -65,7 +65,7 @@ namespace Shapes
                     }
                 }
 
-                // Output the result
+
                 if (closestShape != null)
                 {
                     Console.WriteLine($"The closest shape to the point ({pointX}, {pointY}) is a {closestShape.GetType().Name} with a distance of {closestDistance}.");

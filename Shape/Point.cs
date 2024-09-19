@@ -2,7 +2,7 @@
 
 namespace Shapes
 {
-    class Point
+    public class Point
     {
         public readonly double X;
         public readonly double Y;
@@ -23,7 +23,7 @@ namespace Shapes
             double dot = A * C + B * D;
             double len_sq = C * C + D * D;
             double param = -1;
-            if (len_sq != 0) // in case of 0 length line
+            if (len_sq != 0)
                 param = dot / len_sq;
 
             double xx, yy;
